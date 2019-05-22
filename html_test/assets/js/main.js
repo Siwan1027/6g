@@ -3,7 +3,7 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
-
+window.onload = function(){
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
         center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -27,7 +27,8 @@ function panTo() {
     // 지도 중심을 부드럽게 이동시킵니다
     // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
     map.panTo(moveLatLon);            
-}        
+}
+}
 
 (function($) {
 
