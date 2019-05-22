@@ -1,4 +1,4 @@
-window.onload = function(){
+
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
         center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -6,7 +6,6 @@ window.onload = function(){
     };
 
 var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-}
 
 function setCenter() {            
     // 이동할 위도 경도 위치를 생성합니다 
