@@ -35,7 +35,7 @@ table.type03 {
     line-height: 1.5;
     border-top: 1px solid #ccc;
     border-left: 3px solid #369;
-  margin : 20px 10px;
+    margin : auto;
 }
 table.type03 th {
     width: 147px;
