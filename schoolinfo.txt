@@ -1,0 +1,57 @@
+cheonan school info
+
+sung-jung 1dong school info
+cheonan daean school (36.818299, 127.140417)
+cheonan sung-jung elementary school (36.815518, 127.140508)
+cheonan wachon elementary school (36.806215, 127.144593)
+
+sungjung2 dong school info
+cheonan west elementary school (36.823495, 127.139631)
+cheonan sungjung middle school (36.829842, 127.136144)
+
+ssangyong1 dong
+cheonan mira elementary school (36.800855, 127.128462)
+cheonan bongseo middleschool (36.806594, 127.129749)
+
+ssangyong2 dong
+cheonan wolbong elementary school (36.797103, 127.115763)
+cheonan sugok elementary school (36.790278, 127.122984)
+cheonan ssangyong high school (36.787948, 127.113722)
+nasarett university (36.795141, 127.119004)
+
+ssangyong3 dong
+cheonan yongam elementary school (36.803798, 127.118207)
+cheonan ssangyong elementary school (36.801320, 127.122987)
+cheonan ssangyong middle school (36.803786, 127.120362)
+
+baekseok dong       
+hwanseo elementary school (36.828107, 127.122304)
+hwanseo middle school (36.828638, 127.124422)
+cheonan baekseok middle school (36.819181, 127.121716)
+cheonan wolbong middle school (36.801444, 127.111078)
+cheonan wolbong high school (36.804713, 127.112125)
+
+buldang dong      
+  
+busung1  dong    
+ 
+busung2  dong
+
+
+jungang dong     
+
+munsung dong        
+
+wonseong 1 dong     
+
+wonseong 2 dong    
+
+bongmyeong dong     
+
+ilbong dong         
+
+sinbang dong       
+
+chunglyong dong     
+
+sinan dong        
