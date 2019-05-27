@@ -5,6 +5,11 @@ level: 3 // 지도의 확대 레벨
 };
 
 var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+var mapTypeControl = new daum.maps.MapTypeControl();
+
+// 지도 타입 컨트롤을 지도에 표시합니다
+map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
 
 function setCenter() {            
     // 이동할 위도 경도 위치를 생성합니다 
