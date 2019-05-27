@@ -10,20 +10,15 @@ var mapTypeControl = new daum.maps.MapTypeControl();
 
 // 지도 타입 컨트롤을 지도에 표시합니다
 map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
-
-function setCenter() {            
-    // 이동할 위도 경도 위치를 생성합니다 
-    var moveLatLon = new daum.maps.LatLng(33.452613, 126.570888);
-    
-    // 지도 중심을 이동 시킵니다
-    map.setCenter(moveLatLon);
-}
+var zoomControl = new daum.maps.ZoomControl();
+map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
 
 function panTo(x, y) {
-    // 이동할 위도 경도 위치를 생성합니다 
     var moveLatLon = new daum.maps.LatLng(x, y);
-    
-    // 지도 중심을 부드럽게 이동시킵니다
-    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다dddd
-    map.panTo(moveLatLon);            
+	var markerPosition  = new daum.maps.LatLng(x, y);
+    map.panTo(moveLatLon);
+	var marker = new daum.maps.Marker({
+    position: markerPosition
+	});
+	marker.setMap(map);
 }
