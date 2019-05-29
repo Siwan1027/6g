@@ -9,7 +9,6 @@ var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니�
 var mapTypeControl = new daum.maps.MapTypeControl();
 
 var ps = new daum.maps.services.Places(map); 
-daum.maps.event.addListener(map, 'idle', searchPlaces);
 
 // 지도 타입 컨트롤을 지도에 표시합니다
 map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
@@ -17,7 +16,8 @@ var zoomControl = new daum.maps.ZoomControl();
 map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
 
 function action(x, y) {
-    var moveLatLon = new daum.maps.LatLng(x, y);
+	map.setLevel(3);
+	var moveLatLon = new daum.maps.LatLng(x, y);
 	var markerPosition  = new daum.maps.LatLng(x, y);
     map.panTo(moveLatLon);
 	var marker = new daum.maps.Marker({
@@ -36,10 +36,9 @@ function searchPlaces() {
 function placesSearchCB(data, status, pagination) {
     if (status === daum.maps.services.Status.OK) {
 		setHtml("school", data.length);
-		alert("TEST");
+		setHtml("text", data.place.name);
 	    } else if (status === daum.maps.services.Status.ZERO_RESULT) {
         alert("검색결과없음");
-
     } else if (status === daum.maps.services.Status.ERROR) {
         alert("오류");
     }
@@ -53,4 +52,4 @@ function setHtml(item_id, item_html)
 		 return;
 	 }
 	 obj.innerHTML = item_html;
-} // 표 내용바꾸기
+} // html 내용바꾸기

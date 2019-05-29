@@ -19,6 +19,12 @@
 				<!-- Header -->
 					<header id="header">
 						<div class="inner">
+						
+						<!-- Logo -->
+								<a href="generic.html" class="logo">
+									<span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+								</a>
+
 							<!-- Nav -->
 								<nav>
 									<ul>
@@ -33,7 +39,6 @@
 					<nav id="menu">
 						<h2>천안 대기 정보</h2>
 						<ul>
-							<li><a href="index.html">Home</a></li>
 							<li><a href="generic.html">날씨</a></li>
 							<li><a href="generic.html">미세먼지</a></li>
 							</ul>
@@ -41,31 +46,29 @@
 							<br>
 							<h2>서북구</h2>
 							<ul>
-							<li><a href="javascript:void(0);" onclick="action(36.817944, 127.141511);">성정1동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.823660, 127.137610);">성정2동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.804062, 127.130558);">쌍용1동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.796294, 127.123171);">쌍용2동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.803092, 127.119121);">쌍용3동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.819714, 127.115432);">백석동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.805863, 127.113836);">불당동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.843433, 127.153564);">부성1동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.837296, 127.137898);">부성2동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.817944, 127.141511);">성정1동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.823660, 127.137610);">성정2동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.804062, 127.130558);">쌍용1동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.796294, 127.123171);">쌍용2동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.803092, 127.119121);">쌍용3동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.819714, 127.115432);">백석동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.805863, 127.113836);">불당동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.843433, 127.153564);">부성1동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.837296, 127.137898);">부성2동</a></li>
 							</ul>
 
 							<br>
 							<h2>동남구</h2>
 							<ul>
-							<li><a href="generic.html">중앙동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.800012, 127.152668);">중앙동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.810960, 127.150270);">문성동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.811799, 127.162925);">원성1동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.801327, 127.160759);">원성2동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.803552, 127.136672);">봉명동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.800939, 127.141969);">일봉동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.785848, 127.122469);">신방동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.795602, 127.158154);">청룡동</a></li>
-							<li><a href="javascript:void(0);" onclick="action(36.818391, 127.157634);">신안동</a></li>
-							<li><a href="elements.html">Elements</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.800012, 127.152668);">중앙동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.810960, 127.150270);">문성동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.811799, 127.162925);">원성1동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.801327, 127.160759);">원성2동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.803552, 127.136672);">봉명동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.800939, 127.141969);">일봉동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.785848, 127.122469);">신방동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.795602, 127.158154);">청룡동</a></li>
+							<li><a href="javascript:void(0);" onclick="panTo(36.818391, 127.157634);">신안동</a></li>
 					</ul>
 					</nav>
 
@@ -78,7 +81,7 @@
 							<table class="type03">
 							<tr>
 								<th scope="row">학교</th>
-								<td ID="school">내용이 들어갑니다.</td>
+								<td>내용이 들어갑니다.</td>
 							</tr>
 							<tr>
 								<th scope="row">버스</th>
@@ -90,9 +93,10 @@
 							</tr>
 							<tr>
 								<th scope="row">추가추가</th>
-								<td>내용이 들어갑니다.</td>
+								<td></td>
 							</tr>
-</table>
+							</table>
+							<p ID="text"></p>
 						</div>
 					</div>
 
@@ -126,8 +130,7 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8d132764190fbe275bc67ba2e1e99a1d&libraries=services"></script>
-
+			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8d132764190fbe275bc67ba2e1e99a1d"></script>
 			<script src="assets/js/map.js"></script>
 
 	</body>
