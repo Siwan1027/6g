@@ -29,6 +29,32 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;}
 
+table.type03 {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    border-left: 3px solid #369;
+    margin : auto;
+}
+table.type03 th {
+    width: 147px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #153d73;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+
+}
+table.type03 td {
+    width: 349px;
+    padding: 10px;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}	
+	
 body {
 	line-height: 1;
 }
@@ -654,7 +680,7 @@ input, select, textarea {
 
 				.row > .off-7-xlarge {
 					margin-left: 58.3333333333%;
-				}/
+				}
 
 				.row > .col-8-xlarge {
 					width: 66.6666666667%;
