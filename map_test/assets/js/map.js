@@ -38,11 +38,10 @@ function placesSearchCB(data, status, pagination) {
 		setHtml("school", data.length);
 		alert("TEST");
 	    } else if (status === daum.maps.services.Status.ZERO_RESULT) {
-        // 검색결과가 없는경우 해야할 처리가 있다면 이곳에 작성해 주세요
+        alert("검색결과없음");
 
     } else if (status === daum.maps.services.Status.ERROR) {
-        // 에러로 인해 검색결과가 나오지 않은 경우 해야할 처리가 있다면 이곳에 작성해 주세요
-        
+        alert("오류");
     }
 }
 
