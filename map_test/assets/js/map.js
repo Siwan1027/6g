@@ -36,7 +36,7 @@ function searchPlaces() {
 function placesSearchCB(data, status, pagination) {
     if (status === daum.maps.services.Status.OK) {
 		setHtml("school", data.length);
-		setHtml("text", data.name);
+		setHtml("text", data.place_name);
 	    } else if (status === daum.maps.services.Status.ZERO_RESULT) {
         alert("검색결과없음");
     } else if (status === daum.maps.services.Status.ERROR) {
