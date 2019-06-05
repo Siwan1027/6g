@@ -12,7 +12,8 @@ var ps = new daum.maps.services.Places(map);
 
 var category = new Array("MT1", "CS2", "PS3", "SC4", "SW8", "PO3", "FD6"); //카테고리 코드
 var categoryCount = 0; // 카테고리 카운트
-var mart, conv, kids, school, station, public, rest;
+var mart, conv, kids, school, station, public, rest, bus;
+var hospital = [];
 var markers = [];
 
 // 지도 타입 컨트롤을 지도에 표시합니다
@@ -58,6 +59,8 @@ function action(x, y) {
 	});
 	marker.setMap(map);
 	markers.push(marker);
+	getBus(x, y);
+	getHospital(x, y);
 	placeSearch();
 }
 
@@ -107,7 +110,7 @@ function placesSearchCB(data, status, pagination) {
 			}
 			}
 		} else if (status === daum.maps.services.Status.ZERO_RESULT) {
-			if(categoryCount <= category.length){
+			if(categoryCount < category.length){
 				setHtml(category[categoryCount], "검색결과 없음");
 				categoryCount++;
 				if(categoryCount === category.length){
@@ -197,6 +200,55 @@ function detailView(cname){
 			newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + rest[i].y + "," + rest[i].x + "); style=\"cursor:pointer;\">" + rest[i].place_name + "</th>" + "<td onClick=\"window.open(\'" + rest[i].place_url + "\',\'\',\'\');\" style=\"cursor:pointer;\">" + rest[i].road_address_name + "</td> <td>" + rest[i].phone + "</td>";
 		}
 	}
+	else if(cname === "bus"){
+		for(var i=0; i<bus.response.body.items.item.length; i++){
+			newTR = document.createElement('tr');
+			detail.appendChild(newTR);
+			newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + bus.response.body.items.item[i].gpslati + "," + bus.response.body.items.item[i].gpslong + "); style=\"cursor:pointer;\">" + bus.response.body.items.item[i].nodenm + " 정류장" + "</th>";
+		}
+	}
+	else if(cname === "hos"){
+		for(var i=0; i<hospital[0].response.body.totalCount; i++){
+			newTR = document.createElement('tr');
+			detail.appendChild(newTR);
+			if(hospital[0].response.body.totalCount === 1){
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[0].response.body.items.item.YPos + "," + hospital[0].response.body.items.item.XPos + "); style=\"cursor:pointer;\">" + hospital[0].response.body.items.item.yadmNm + "</th>";
+			}
+			else{
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[0].response.body.items.item[i].YPos + "," + hospital[0].response.body.items.item[i].XPos + "); style=\"cursor:pointer;\">" + hospital[0].response.body.items.item[i].yadmNm + "</th>";
+
+			}}
+		for(var i=0; i<hospital[1].response.body.totalCount; i++){
+			newTR = document.createElement('tr');
+			detail.appendChild(newTR);
+			if(hospital[1].response.body.totalCount === 1){
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[1].response.body.items.item.YPos + "," + hospital[1].response.body.items.item.XPos + "); style=\"cursor:pointer;\">" + hospital[1].response.body.items.item.yadmNm + "</th>";
+			}
+			else{
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[1].response.body.items.item[i].YPos + "," + hospital[1].response.body.items.item[i].XPos + "); style=\"cursor:pointer;\">" + hospital[1].response.body.items.item[i].yadmNm + "</th>";
+
+			}}
+		for(var i=0; i<hospital[2].response.body.totalCount; i++){
+			newTR = document.createElement('tr');
+			detail.appendChild(newTR);
+			if(hospital[2].response.body.totalCount === 1){
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[2].response.body.items.item.YPos + "," + hospital[2].response.body.items.item.XPos + "); style=\"cursor:pointer;\">" + hospital[2].response.body.items.item.yadmNm + "</th>";
+			}
+			else{
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[2].response.body.items.item[i].YPos + "," + hospital[2].response.body.items.item[i].XPos + "); style=\"cursor:pointer;\">" + hospital[2].response.body.items.item[i].yadmNm + "</th>";
+
+			}}
+		for(var i=0; i<hospital[3].response.body.totalCount; i++){
+			newTR = document.createElement('tr');
+			detail.appendChild(newTR);
+			if(hospital[3].response.body.totalCount === 1){
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[3].response.body.items.item.YPos + "," + hospital[3].response.body.items.item.XPos + "); style=\"cursor:pointer;\">" + hospital[3].response.body.items.item.yadmNm + "</th>";
+			}
+			else{
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[3].response.body.items.item[i].YPos + "," + hospital[3].response.body.items.item[i].XPos + "); style=\"cursor:pointer;\">" + hospital[3].response.body.items.item[i].yadmNm + "</th>";
+
+			}}
+	}
 } // 상세정보 보기 구현
 
 function geoMarkerAdd(x, y){
@@ -210,4 +262,65 @@ function geoMarkerAdd(x, y){
 	});
 	marker.setMap(map);
 	markers.push(marker);
+}
+
+function getBus(x, y){
+	var serviceUrl = "http://127.0.0.1:8000/?serviceKey=";
+	var svcKey = "ossp";
+	var gps = "&x=" + x + "&y=" + y;
+	var url = serviceUrl + svcKey + gps + "&cat=bus";
+	
+	$.ajax({
+		dataType : "json",
+		url : url,
+		success : function(data) {
+			setHtml("BUS", data.response.body.totalCount + "개 <a href=\"javascript:void(0);\" onclick=\"detailView(\'bus\');\">상세보기</a>");
+			bus = data;
+		}
+	});
+}
+
+function getHospital(x, y){
+	var serviceUrl = "http://127.0.0.1:8000/?serviceKey=";
+	var svcKey = "ossp";
+	var gps = "&x=" + x + "&y=" + y;
+	var url = serviceUrl + svcKey + gps + "&cat=hospital";
+	var tmp=0;
+	
+	$.ajax({
+		dataType : "json",
+		url : url + "&zipCd=2010",
+		success : function(data) {
+			tmp += data.response.body.totalCount;
+			hospital[0] = data;
+		}
+	});
+
+	$.ajax({
+		dataType : "json",
+		url : url + "&zipCd=2030",
+		success : function(data) {
+			tmp += data.response.body.totalCount;
+			hospital[1] = data;
+		}
+	});
+
+	$.ajax({
+		dataType : "json",
+		url : url + "&zipCd=2050",
+		success : function(data) {
+			tmp += data.response.body.totalCount;
+			hospital[2] = data;
+		}
+	});
+
+	$.ajax({
+		dataType : "json",
+		url : url + "&zipCd=2070",
+		success : function(data) {
+			tmp += data.response.body.totalCount;
+			setHtml("HOS", tmp + "개 <a href=\"javascript:void(0);\" onclick=\"detailView(\'hos\');\">상세보기</a>");
+			hospital[3] = data;
+		}
+	});
 }
