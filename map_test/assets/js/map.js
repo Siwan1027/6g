@@ -1,8 +1,8 @@
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 mapOption = { 
-center: new daum.maps.LatLng(36.815105, 127.113886), // 지도의 중심좌표
-level: 3 // 지도의 확대 레벨
-};
+	center: new daum.maps.LatLng(36.815105, 127.113886), // 지도의 중심좌표
+	level: 3 // 지도의 확대 레벨
+	};
 
 var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
@@ -10,10 +10,11 @@ var mapTypeControl = new daum.maps.MapTypeControl();
 
 var ps = new daum.maps.services.Places(map); 
 
-var category = new Array("MT1", "CS2", "PS3", "SC4", "SW8", "PO3", "FD6"); //카테고리 코드
+var category = new Array("MT1", "CS2", "PS3", "SC4", "SW8", "PO3", "FD6", "PM9"); //카테고리 코드
 var categoryCount = 0; // 카테고리 카운트
-var mart, conv, kids, school, station, public, rest, bus;
+var mart, conv, kids, school, station, public, rest, bus, pharm;
 var hospital = [];
+var hosCount = 0;
 var markers = [];
 
 // 지도 타입 컨트롤을 지도에 표시합니다
@@ -42,7 +43,28 @@ daum.maps.event.addListener(map, 'click', function(mouseEvent) {
     action(latlng.getLat(), latlng.getLng());
 });
 
+if (navigator.geolocation) {
+    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+    navigator.geolocation.getCurrentPosition(function(position) {
+        
+        var lat = position.coords.latitude, // 위도
+            lon = position.coords.longitude; // 경도
+        
+			var moveLatLon = new daum.maps.LatLng(lat, lon);
+			var markerPosition  = new daum.maps.LatLng(lat, lon);
+			map.panTo(moveLatLon);
+			var marker = new daum.maps.Marker({
+			position: markerPosition
+			});
+			removeMarker();
+			marker.setMap(map);
+			markers.push(marker);
+      });
+    
+}
+
 function action(x, y) {
+	mart = conv = kids = school = station = public = rest = pharm = undefined;
 	removeMarker();
 	var detail = document.getElementById("detailView");
 	if (detail == null) {
@@ -99,6 +121,10 @@ function placesSearchCB(data, status, pagination) {
 			else if(categoryCount === 6){
 				rest = data;
 				setHtml(category[categoryCount], data.length + "개 <a href=\"javascript:void(0);\" onclick=\"detailView(\'rest\');\">상세보기</a>");
+			}
+			else if(categoryCount === 7){
+				pharm = data;
+				setHtml(category[categoryCount], data.length + "개 <a href=\"javascript:void(0);\" onclick=\"detailView(\'pha\');\">상세보기</a>");
 			}
 			categoryCount++;
 			if(categoryCount === category.length){
@@ -249,6 +275,13 @@ function detailView(cname){
 
 			}}
 	}
+	else if(cname === "pha"){
+		for(var i=0; i<pharm.length; i++){
+			newTR = document.createElement('tr');
+			detail.appendChild(newTR);
+			newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + pharm[i].y + "," + pharm[i].x + "); style=\"cursor:pointer;\">" + pharm[i].place_name + "</th>" + "<td onClick=\"window.open(\'" + pharm[i].place_url + "\',\'\',\'\');\" style=\"cursor:pointer;\">" + pharm[i].road_address_name + "</td> <td>" + pharm[i].phone + "</td>";
+		}
+	}
 } // 상세정보 보기 구현
 
 function geoMarkerAdd(x, y){
@@ -274,7 +307,12 @@ function getBus(x, y){
 		dataType : "json",
 		url : url,
 		success : function(data) {
-			setHtml("BUS", data.response.body.totalCount + "개 <a href=\"javascript:void(0);\" onclick=\"detailView(\'bus\');\">상세보기</a>");
+			if(data.response.body.totalCount === 0){
+				setHtml("BUS", "검색결과 없음");
+			}
+			else {
+				setHtml("BUS", data.response.body.totalCount + "개 <a href=\"javascript:void(0);\" onclick=\"detailView(\'bus\');\">상세보기</a>");
+			}
 			bus = data;
 		}
 	});
@@ -285,13 +323,13 @@ function getHospital(x, y){
 	var svcKey = "ossp";
 	var gps = "&x=" + x + "&y=" + y;
 	var url = serviceUrl + svcKey + gps + "&cat=hospital";
-	var tmp=0;
+	hosCount = 0;
 	
 	$.ajax({
 		dataType : "json",
 		url : url + "&zipCd=2010",
 		success : function(data) {
-			tmp += data.response.body.totalCount;
+			hosCount += data.response.body.totalCount;
 			hospital[0] = data;
 		}
 	});
@@ -300,7 +338,7 @@ function getHospital(x, y){
 		dataType : "json",
 		url : url + "&zipCd=2030",
 		success : function(data) {
-			tmp += data.response.body.totalCount;
+			hosCount += data.response.body.totalCount;
 			hospital[1] = data;
 		}
 	});
@@ -309,7 +347,7 @@ function getHospital(x, y){
 		dataType : "json",
 		url : url + "&zipCd=2050",
 		success : function(data) {
-			tmp += data.response.body.totalCount;
+			hosCount += data.response.body.totalCount;
 			hospital[2] = data;
 		}
 	});
@@ -318,9 +356,344 @@ function getHospital(x, y){
 		dataType : "json",
 		url : url + "&zipCd=2070",
 		success : function(data) {
-			tmp += data.response.body.totalCount;
-			setHtml("HOS", tmp + "개 <a href=\"javascript:void(0);\" onclick=\"detailView(\'hos\');\">상세보기</a>");
+			hosCount += data.response.body.totalCount;
+			if(hosCount === 0){
+				setHtml("HOS", "검색결과 없음");
+			}
+			else {
+				setHtml("HOS", hosCount + "개 <a href=\"javascript:void(0);\" onclick=\"detailView(\'hos\');\">상세보기</a>");
+			}
 			hospital[3] = data;
+			chart();
 		}
 	});
+}
+
+function chart(){
+	
+	var container = document.getElementById('chart');
+	container.innerHTML = "";
+	var dummy = [];
+
+	if(mart === undefined){
+		mart = dummy;
+	}
+	if(conv === undefined){
+		conv = dummy;
+	}
+	if(kids === undefined){
+		kids = dummy;
+	}
+	if(school === undefined){
+		school = dummy;
+	}
+	if(station === undefined){
+		station = dummy;
+	}
+	if(public === undefined){
+		public = dummy;
+	}
+	if(rest === undefined){
+		rest = dummy;
+	}
+	if(pharm === undefined){
+		pharm = dummy;
+	}
+
+	var martScore, convScore, stationBusScore, publicScore, restScore, hosScore, pharmScore;
+	var kidsScore = [];
+	var schoolScore = [];
+
+	if(mart.length >= 5){
+		martScore = 5;
+	}
+	else if(mart.length === 4){
+		martScore = 4;
+	}
+	else if(mart.length === 3){
+		martScore = 3;
+	}
+	else if(mart.length === 2){
+		martScore = 2;
+	}
+	else if(mart.length === 1){
+		martScore = 1;
+	}
+	else if(mart.length === 0){
+		martScore = 0;
+	}
+
+	if(conv.length >= 10){
+		convScore = 5;
+	}
+	else if(conv.length >= 9){
+		convScore = 4.5;
+	}
+	else if(conv.length >= 8){
+		convScore = 4;
+	}
+	else if(conv.length >= 7){
+		convScore = 3.5;
+	}
+	else if(conv.length >= 6){
+		convScore = 3;
+	}
+	else if(conv.length >= 5){
+		convScore = 2.5;
+	}
+	else if(conv.length >= 4){
+		convScore = 2;
+	}
+	else if(conv.length >= 3){
+		convScore = 1.5;
+	}
+	else if(conv.length >= 2){
+		convScore = 1;
+	}
+	else if(conv.length >= 1){
+		convScore = 0.5;
+	}
+	else if(conv.length === 0){
+		convScore = 0;
+	}
+
+	if(station.length + bus.response.body.totalCount >= 20){
+		stationBusScore = 5;
+	}
+	else if(station.length + bus.response.body.totalCount >= 17){
+		stationBusScore = 4.5;
+	}
+	else if(station.length + bus.response.body.totalCount >= 15){
+		stationBusScore = 4;
+	}
+	else if(station.length + bus.response.body.totalCount >= 12){
+		stationBusScore = 3.5;
+	}
+	else if(station.length + bus.response.body.totalCount >= 9){
+		stationBusScore = 3;
+	}
+	else if(station.length + bus.response.body.totalCount >= 7){
+		stationBusScore = 2.5;
+	}
+	else if(station.length + bus.response.body.totalCount >= 5){
+		stationBusScore = 2;
+	}
+	else if(station.length + bus.response.body.totalCount >= 3){
+		stationBusScore = 1.5;
+	}
+	else if(station.length + bus.response.body.totalCount >= 1){
+		stationBusScore = 1;
+	}
+	else if(station.length + bus.response.body.totalCount === 0){
+		stationBusScore = 0;
+	}
+
+	if(public.length >= 2){
+		publicScore = 5;
+	}
+	else if(public.length === 1){
+		publicScore = 3;
+	}
+	else if(public.length === 0){
+		publicScore = 0;
+	}
+
+	if(rest.length >= 15){
+		restScore = 5
+	}
+	if(rest.length >= 13){
+		restScore = 4.5;
+	}
+	if(rest.length >= 11){
+		restScore = 4;
+	}
+	if(rest.length >= 9){
+		restScore = 3.5;
+	}
+	if(rest.length >= 7){
+		restScore = 3;
+	}
+	if(rest.length >= 5){
+		restScore = 2.5;
+	}
+	if(rest.length >= 3){
+		restScore = 2;
+	}
+	if(rest.length >= 2){
+		restScore = 1.5;
+	}
+	if(rest.length === 1){
+		restScore = 1;
+	}
+	if(rest.length === 0){
+		restScore = 0;
+	}
+
+	if(hosCount >= 20){
+		hosScore = 5;
+	}
+	else if(hosCount >= 17){
+		hosScore = 4.5;
+	}
+	else if(hosCount >= 15){
+		hosScore = 4;
+	}
+	else if(hosCount >= 13){
+		hosScore = 3.5;
+	}
+	else if(hosCount >= 11){
+		hosScore = 3;
+	}
+	else if(hosCount >= 9){
+		hosScore = 2.5;
+	}
+	else if(hosCount >= 7){
+		hosScore = 2;
+	}
+	else if(hosCount >= 5){
+		hosScore = 1.5;
+	}
+	else if(hosCount >= 3){
+		hosScore = 1;
+	}
+	else if(hosCount === 1){
+		hosScore = 0.5;
+	}
+	else if(hosCount === 0){
+		hosScore = 0;
+	}
+
+	if(pharm.length >= 10){
+		pharmScore = 5;
+	}
+	else if(pharm.length >= 9){
+		pharmScore = 4.5;
+	}
+	else if(pharm.length >= 8){
+		pharmScore = 3.5;
+	}
+	else if(pharm.length >= 7){
+		pharmScore = 3;
+	}
+	else if(pharm.length >= 6){
+		pharmScore = 2.5;
+	}
+	else if(pharm.length >= 5){
+		pharmScore = 2;
+	}
+	else if(pharm.length >= 4){
+		pharmScore = 1.5;
+	}
+	else if(pharm.length >= 3){
+		pharmScore = 1;
+	}
+	else if(pharm.length >= 2){
+		pharmScore = 1;
+	}
+	else if(pharm.length === 1){
+		pharmScore = 0.5;
+	}
+	else if(pharm.length === 0){
+		pharmScore = 0;
+	}
+
+	if(kids.length >= 15){
+		kidsScore[0] = 1;
+		kidsScore[1] = 5;
+	}
+	else if(kids.length >= 13){
+		kidsScore[0] = 1.5;
+		kidsScore[1] = 4.5;
+	}
+	else if(kids.length >= 11){
+		kidsScore[0] = 2;
+		kidsScore[1] = 4;
+	}
+	else if(kids.length >= 9){
+		kidsScore[0] = 2.5;
+		kidsScore[1] = 3.5;
+	}
+	else if(kids.length >= 7){
+		kidsScore[0] = 3;
+		kidsScore[1] = 3;
+	}
+	else if(kids.length >= 5){
+		kidsScore[0] = 3.5;
+		kidsScore[1] = 2.5;
+	}
+	else if(kids.length >= 3){
+		kidsScore[0] = 4;
+		kidsScore[1] = 2;
+	}
+	else if(kids.length >= 1){
+		kidsScore[0] = 4.5;
+		kidsScore[1] = 1;
+	}
+	else if(kids.length === 0){
+		kidsScore[0] = 5;
+		kidsScore[1] = 0;
+	}
+
+	if(school.length >= 3){
+		schoolScore[0] = 1;
+		schoolScore[1] = 5;
+	}
+	else if(school.length >= 2){
+		schoolScore[0] = 3;
+		schoolScore[1] = 3;
+	}
+	else if(school.length >= 1){
+		schoolScore[0] = 4;
+		schoolScore[1] = 1;
+	}
+	else if(school.length === 0){
+		schoolScore[0] = 5;
+		schoolScore[1] = 0;
+	}
+	
+	var data = {
+		categories: ['마트', '편의점', '어린이집 / 유치원', '학교', '지하철역 / 버스 정류장', '공공기관', '음식점', '병원', '약국'],
+		series: [
+			{
+				name: '2~30대',
+				data: [martScore,convScore,kidsScore[0],schoolScore[0],stationBusScore,publicScore,restScore,hosScore,pharmScore]
+			},
+			{
+				name: '30대 이상',
+				data: [martScore,convScore,kidsScore[1],schoolScore[1],stationBusScore,publicScore,restScore,hosScore,pharmScore]
+			},
+		]
+	};
+	var options = {
+		categories: ['마트', '편의점', '어린이집 / 유치원', '학교', '지하철역', '공공기관', '음식점', '버스 정류장', '병원', '약국'],
+		chart: {
+			width: document.getElementById("chart").clientWidth,
+			height: 650,
+			title: '지역 편의성 점수',
+			format: '1'
+		},
+		yAxis: {
+			title: '점수',
+			min: 0,
+			max: 5
+		},
+		xAxis: {
+			title: '항목'
+		},
+		legend: {
+			align: 'top'
+		},
+	};
+	var theme = {
+		categories: {
+			colors: [
+				'#83b14e', '#458a3f', '#295ba0', '#2a4175', '#289399',
+				'#289399', '#617178', '#8a9a9a', '#516f7d', '#dddddd'
+			]
+		}
+	};
+	// For apply theme
+	//tui.chart.registerTheme('myTheme', theme);
+	//options.theme = 'myTheme';
+	tui.chart.columnChart(container, data, options);
 }
