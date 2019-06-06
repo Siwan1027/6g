@@ -295,6 +295,7 @@ function geoMarkerAdd(x, y){
 	});
 	marker.setMap(map);
 	markers.push(marker);
+	document.getElementById("map").scrollIntoView();
 }
 
 function getBus(x, y){
