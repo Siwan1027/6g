@@ -299,7 +299,7 @@ function geoMarkerAdd(x, y){
 }
 
 function getBus(x, y){
-	var serviceUrl = "http://127.0.0.1:8000/?serviceKey=";
+	var serviceUrl = "http://api.groovin.kr/?serviceKey=";
 	var svcKey = "ossp";
 	var gps = "&x=" + x + "&y=" + y;
 	var url = serviceUrl + svcKey + gps + "&cat=bus";
@@ -320,7 +320,7 @@ function getBus(x, y){
 }
 
 function getHospital(x, y){
-	var serviceUrl = "http://127.0.0.1:8000/?serviceKey=";
+	var serviceUrl = "http://api.groovin.kr/?serviceKey=";
 	var svcKey = "ossp";
 	var gps = "&x=" + x + "&y=" + y;
 	var url = serviceUrl + svcKey + gps + "&cat=hospital";
