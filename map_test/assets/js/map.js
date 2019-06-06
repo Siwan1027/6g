@@ -238,40 +238,40 @@ function detailView(cname){
 			newTR = document.createElement('tr');
 			detail.appendChild(newTR);
 			if(hospital[0].response.body.totalCount === 1){
-				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[0].response.body.items.item.YPos + "," + hospital[0].response.body.items.item.XPos + "); style=\"cursor:pointer;\">" + hospital[0].response.body.items.item.yadmNm + "</th>";
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[0].response.body.items.item.YPos + "," + hospital[0].response.body.items.item.XPos + "); style=\"cursor:pointer;\">" + hospital[0].response.body.items.item.yadmNm + "</th>" + "<td>" + hospital[0].response.body.items.item.addr + "</td> <td>" + hospital[0].response.body.items.item.telno + "</td>";
 			}
 			else{
-				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[0].response.body.items.item[i].YPos + "," + hospital[0].response.body.items.item[i].XPos + "); style=\"cursor:pointer;\">" + hospital[0].response.body.items.item[i].yadmNm + "</th>";
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[0].response.body.items.item[i].YPos + "," + hospital[0].response.body.items.item[i].XPos + "); style=\"cursor:pointer;\">" + hospital[0].response.body.items.item[i].yadmNm + "</th>" + "<td>" + hospital[0].response.body.items.item[i].addr + "</td> <td>" + hospital[0].response.body.items.item[i].telno + "</td>";
 
 			}}
 		for(var i=0; i<hospital[1].response.body.totalCount; i++){
 			newTR = document.createElement('tr');
 			detail.appendChild(newTR);
 			if(hospital[1].response.body.totalCount === 1){
-				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[1].response.body.items.item.YPos + "," + hospital[1].response.body.items.item.XPos + "); style=\"cursor:pointer;\">" + hospital[1].response.body.items.item.yadmNm + "</th>";
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[1].response.body.items.item.YPos + "," + hospital[1].response.body.items.item.XPos + "); style=\"cursor:pointer;\">" + hospital[1].response.body.items.item.yadmNm + "</th>" + "<td>" + hospital[1].response.body.items.item.addr + "</td> <td>" + hospital[1].response.body.items.item.telno + "</td>";
 			}
 			else{
-				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[1].response.body.items.item[i].YPos + "," + hospital[1].response.body.items.item[i].XPos + "); style=\"cursor:pointer;\">" + hospital[1].response.body.items.item[i].yadmNm + "</th>";
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[1].response.body.items.item[i].YPos + "," + hospital[1].response.body.items.item[i].XPos + "); style=\"cursor:pointer;\">" + hospital[1].response.body.items.item[i].yadmNm + "</th>" + "<td>" + hospital[1].response.body.items.item[i].addr + "</td> <td>" + hospital[1].response.body.items.item[i].telno + "</td>";
 
 			}}
 		for(var i=0; i<hospital[2].response.body.totalCount; i++){
 			newTR = document.createElement('tr');
 			detail.appendChild(newTR);
 			if(hospital[2].response.body.totalCount === 1){
-				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[2].response.body.items.item.YPos + "," + hospital[2].response.body.items.item.XPos + "); style=\"cursor:pointer;\">" + hospital[2].response.body.items.item.yadmNm + "</th>";
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[2].response.body.items.item.YPos + "," + hospital[2].response.body.items.item.XPos + "); style=\"cursor:pointer;\">" + hospital[2].response.body.items.item.yadmNm + "</th>" + "<td>" + hospital[2].response.body.items.item.addr + "</td> <td>" + hospital[2].response.body.items.item.telno + "</td>";
 			}
 			else{
-				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[2].response.body.items.item[i].YPos + "," + hospital[2].response.body.items.item[i].XPos + "); style=\"cursor:pointer;\">" + hospital[2].response.body.items.item[i].yadmNm + "</th>";
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[2].response.body.items.item[i].YPos + "," + hospital[2].response.body.items.item[i].XPos + "); style=\"cursor:pointer;\">" + hospital[2].response.body.items.item[i].yadmNm + "</th>" + "<td>" + hospital[2].response.body.items.item[i].addr + "</td> <td>" + hospital[2].response.body.items.item[i].telno + "</td>";
 
 			}}
 		for(var i=0; i<hospital[3].response.body.totalCount; i++){
 			newTR = document.createElement('tr');
 			detail.appendChild(newTR);
 			if(hospital[3].response.body.totalCount === 1){
-				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[3].response.body.items.item.YPos + "," + hospital[3].response.body.items.item.XPos + "); style=\"cursor:pointer;\">" + hospital[3].response.body.items.item.yadmNm + "</th>";
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[3].response.body.items.item.YPos + "," + hospital[3].response.body.items.item.XPos + "); style=\"cursor:pointer;\">" + hospital[3].response.body.items.item.yadmNm + "</th>" + "<td>" + hospital[3].response.body.items.item.addr + "</td> <td>" + hospital[3].response.body.items.item.telno + "</td>";
 			}
 			else{
-				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[3].response.body.items.item[i].YPos + "," + hospital[3].response.body.items.item[i].XPos + "); style=\"cursor:pointer;\">" + hospital[3].response.body.items.item[i].yadmNm + "</th>";
+				newTR.innerHTML = "<th scope=\'row\' onClick=geoMarkerAdd(" + hospital[3].response.body.items.item[i].YPos + "," + hospital[3].response.body.items.item[i].XPos + "); style=\"cursor:pointer;\">" + hospital[3].response.body.items.item[i].yadmNm + "</th>" + "<td>" + hospital[3].response.body.items.item[i].addr + "</td> <td>" + hospital[3].response.body.items.item[i].telno + "</td>";
 
 			}}
 	}
@@ -502,31 +502,31 @@ function chart(){
 	if(rest.length >= 15){
 		restScore = 5
 	}
-	if(rest.length >= 13){
+	else if(rest.length >= 13){
 		restScore = 4.5;
 	}
-	if(rest.length >= 11){
+	else if(rest.length >= 11){
 		restScore = 4;
 	}
-	if(rest.length >= 9){
+	else if(rest.length >= 9){
 		restScore = 3.5;
 	}
-	if(rest.length >= 7){
+	else if(rest.length >= 7){
 		restScore = 3;
 	}
-	if(rest.length >= 5){
+	else if(rest.length >= 5){
 		restScore = 2.5;
 	}
-	if(rest.length >= 3){
+	else if(rest.length >= 3){
 		restScore = 2;
 	}
-	if(rest.length >= 2){
+	else if(rest.length >= 2){
 		restScore = 1.5;
 	}
-	if(rest.length === 1){
+	else if(rest.length === 1){
 		restScore = 1;
 	}
-	if(rest.length === 0){
+	else if(rest.length === 0){
 		restScore = 0;
 	}
 
